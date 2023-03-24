@@ -1,4 +1,23 @@
-import { Callback, InitFunction } from './interface';
-export declare const init: ({ is_debug }: InitFunction) => void;
-export declare const log: (...data: any[]) => void;
-export declare const post: (path: string, body: any, proceed: Callback) => void;
+import { Callback, InitContructor } from './interface';
+export declare class BbhChatboxWidget {
+    private _is_debug;
+    private _chatbox_secret_key;
+    private _chatbox_widget_access_token?;
+    private _is_chatbox_page_admin?;
+    private _chatbot_public_token?;
+    private _fb_client_id?;
+    constructor(input: InitContructor);
+    get chatbox_widget_access_token(): string | null | undefined;
+    private _log;
+    private _post_json;
+    private _get_query_string;
+    private _init_chatbox_widget_access_token;
+    private _to_boolean;
+    private _init_is_chatbox_page_admin;
+    init(proceed: Callback): void;
+    save_config(data: Object, proceed: Callback): void;
+    get_config(data: Object, proceed: Callback): void;
+    connect_widget_to_page_chatbox(token_partner: string, proceed: Callback): void;
+    get_client_info(proceed: Callback): void;
+    send_message_to_client(data: Object, proceed: Callback): void;
+}

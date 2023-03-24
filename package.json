@@ -12,6 +12,10 @@
     "build": "rimraf ./build && tsc",
     "prepare": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nguyenleminhdev/bbh-chatbox-widget-sdk.git"
+  },
   "author": "Andrew Nguyen <nguyenleminhdev@gmail.com>",
   "license": "ISC",
   "devDependencies": {

@@ -6,7 +6,7 @@ import {
     CHATBOT_DOMAIN
 } from './constant'
 
-import { Callback, InitContructor } from './interface'
+import { Callback, InitContructor, GetCustomerInfoCallback } from './interface'
 
 export class BbhChatboxWidget {
     private _is_debug: boolean
@@ -136,7 +136,7 @@ export class BbhChatboxWidget {
             proceed
         )
     }
-    public get_client_info(proceed: Callback) {
+    public get_client_info(proceed: GetCustomerInfoCallback) {
         this._log('get client info')
 
         this._post_json(

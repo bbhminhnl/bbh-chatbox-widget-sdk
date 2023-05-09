@@ -43,12 +43,21 @@ export class BbhChatboxWidget {
             .post(
                 uri,
                 body,
-                {
-                    headers: headers as any
-                }
+                { headers: headers as any }
             )
-            .then(r => proceed(null, r.data))
-            .catch(e => proceed(e.message || e))
+            .then(r => {
+                if (r && r.data && r.data.data) return proceed(null, r.data.data)
+                if (r && r.data) return proceed(null, r.data)
+
+                proceed(null, r)
+            })
+            .catch(e => {
+                if (e.response && e.response.message) return proceed(e.response.message)
+                if (e.response) return proceed(e.response)
+                if (e.message) return  proceed(e.message)
+
+                proceed(e)
+            })
     }
     private _get_query_string(field: string) {
         return new URLSearchParams(window.location.search).get(field)

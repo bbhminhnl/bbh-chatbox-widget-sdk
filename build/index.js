@@ -25,11 +25,23 @@ class BbhChatboxWidget {
     }
     _post_json(uri, body, headers, proceed) {
         axios_1.default
-            .post(uri, body, {
-            headers: headers
+            .post(uri, body, { headers: headers })
+            .then(r => {
+            if (r && r.data && r.data.data)
+                return proceed(null, r.data.data);
+            if (r && r.data)
+                return proceed(null, r.data);
+            proceed(null, r);
         })
-            .then(r => proceed(null, r.data))
-            .catch(e => proceed(e.message || e));
+            .catch(e => {
+            if (e.response && e.response.message)
+                return proceed(e.response.message);
+            if (e.response)
+                return proceed(e.response);
+            if (e.message)
+                return proceed(e.message);
+            proceed(e);
+        });
     }
     _get_query_string(field) {
         return new URLSearchParams(window.location.search).get(field);

@@ -34,8 +34,10 @@ class BbhChatboxWidget {
             proceed(null, r);
         })
             .catch(e => {
-            if (e.response && e.response.message)
-                return proceed(e.response.message);
+            if (e.response && e.response.data && e.response.data.message)
+                return proceed(e.response.data.message);
+            if (e.response && e.response.data)
+                return proceed(e.response.data);
             if (e.response)
                 return proceed(e.response);
             if (e.message)

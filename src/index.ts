@@ -24,6 +24,9 @@ export class BbhChatboxWidget {
     get chatbox_widget_access_token() {
         return this._chatbox_widget_access_token
     }
+    get is_chatbox_page_admin() {
+        return this._is_chatbox_page_admin
+    }
 
     private _log(...data: any[]) {
         if (!this._is_debug) return

@@ -1,6 +1,6 @@
 {
   "name": "bbh-chatbox-widget",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Communicate with Bot Bán Hàng Chatbox App",
   "main": "build/index.js",
   "types": "build/index.d.ts",

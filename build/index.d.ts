@@ -8,6 +8,7 @@ export declare class BbhChatboxWidget {
     private _fb_client_id?;
     constructor(input: InitContructor);
     get chatbox_widget_access_token(): string | null | undefined;
+    get is_chatbox_page_admin(): boolean | undefined;
     private _log;
     private _post_json;
     private _get_query_string;

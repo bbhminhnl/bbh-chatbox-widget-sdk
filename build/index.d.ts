@@ -1,4 +1,4 @@
-import { Callback, InitContructor, GetCustomerInfoCallback } from './interface';
+import { Callback, InitContructor, GetCustomerInfoCallback, GetConfigInput, SaveConfigInput } from './interface';
 export declare class BbhChatboxWidget {
     private _is_debug;
     private _chatbox_secret_key;
@@ -16,9 +16,10 @@ export declare class BbhChatboxWidget {
     private _to_boolean;
     private _init_is_chatbox_page_admin;
     init(proceed: Callback): void;
-    save_config(data: Object, proceed: Callback): void;
-    get_config(data: Object, proceed: Callback): void;
+    save_config(data: SaveConfigInput, proceed: Callback): void;
+    delete_config(proceed: Callback): void;
+    get_config(data: GetConfigInput, proceed: Callback): void;
     connect_widget_to_page_chatbox(token_partner: string, proceed: Callback): void;
     get_client_info(proceed: GetCustomerInfoCallback): void;
-    send_message_to_client(data: Object, proceed: Callback): void;
+    send_message_to_client(data: any, proceed: Callback): void;
 }

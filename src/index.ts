@@ -6,7 +6,10 @@ import {
     CHATBOT_DOMAIN
 } from './constant'
 
-import { Callback, InitContructor, GetCustomerInfoCallback } from './interface'
+import {
+    Callback, InitContructor, GetCustomerInfoCallback, GetConfigInput, 
+    SaveConfigInput,
+} from './interface'
 
 export class BbhChatboxWidget {
     private _is_debug: boolean
@@ -55,7 +58,7 @@ export class BbhChatboxWidget {
                 if (e.response && e.response.data && e.response.data.message) return proceed(e.response.data.message)
                 if (e.response && e.response.data) return proceed(e.response.data)
                 if (e.response) return proceed(e.response)
-                if (e.message) return  proceed(e.message)
+                if (e.message) return proceed(e.message)
 
                 proceed(e)
             })
@@ -99,7 +102,7 @@ export class BbhChatboxWidget {
 
         this._log('Init Bbh Chatbox Widget successfully!')
     }
-    public save_config(data: Object, proceed: Callback) {
+    public save_config(data: SaveConfigInput, proceed: Callback) {
         this._log('Do save_config')
 
         this._post_json(
@@ -109,14 +112,31 @@ export class BbhChatboxWidget {
             proceed
         )
     }
-    public get_config(data: Object, proceed: Callback) {
+    public delete_config(proceed: Callback) {
+        this._log('Do delete_config')
+
+        this._post_json(
+            `${CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`,
+            {},
+            { Authorization: this._chatbox_widget_access_token },
+            proceed
+        )
+    }
+    public get_config(data: GetConfigInput, proceed: Callback) {
         this._log('Do get config')
 
         this._post_json(
             `${CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/get-config`,
             data,
             { Authorization: this._chatbox_widget_access_token },
-            proceed
+            (e, r) => {
+                if (e && e.error_message) return proceed(e.error_message)
+                if (e) return proceed(e)
+
+                if (r && r.config_data) return proceed(null, r.config_data)
+
+                proceed(null, r)
+            }
         )
     }
     public connect_widget_to_page_chatbox(
@@ -154,7 +174,7 @@ export class BbhChatboxWidget {
             }
         )
     }
-    public send_message_to_client(data: Object, proceed: Callback) {
+    public send_message_to_client(data: any, proceed: Callback) {
         this._log('send message to client')
 
         this._post_json(

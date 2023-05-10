@@ -79,9 +79,21 @@ class BbhChatboxWidget {
         this._log('Do save_config');
         this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`, data, { Authorization: this._chatbox_widget_access_token }, proceed);
     }
+    delete_config(proceed) {
+        this._log('Do delete_config');
+        this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`, {}, { Authorization: this._chatbox_widget_access_token }, proceed);
+    }
     get_config(data, proceed) {
         this._log('Do get config');
-        this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/get-config`, data, { Authorization: this._chatbox_widget_access_token }, proceed);
+        this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/get-config`, data, { Authorization: this._chatbox_widget_access_token }, (e, r) => {
+            if (e && e.error_message)
+                return proceed(e.error_message);
+            if (e)
+                return proceed(e);
+            if (r && r.config_data)
+                return proceed(null, r.config_data);
+            proceed(null, r);
+        });
     }
     connect_widget_to_page_chatbox(token_partner, proceed) {
         this._log('start connect widget and page chatbox');

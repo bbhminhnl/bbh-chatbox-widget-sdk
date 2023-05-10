@@ -1,4 +1,5 @@
 type MyError = Error | string | any;
+type TypeConfig = 'CRM';
 export type Callback = (error: MyError, result?: any) => void;
 export interface InitContructor {
     is_debug: boolean;
@@ -18,5 +19,14 @@ export interface CustomerInfo {
 }
 export interface GetCustomerInfoCallback {
     (error: MyError, result?: CustomerInfo): void;
+}
+export interface GetConfigInput {
+    type_config: TypeConfig;
+    brand_name: string;
+}
+export interface SaveConfigInput {
+    type_config: TypeConfig;
+    brand_name: string;
+    config_data: any;
 }
 export {};

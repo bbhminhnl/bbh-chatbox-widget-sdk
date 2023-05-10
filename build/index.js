@@ -79,9 +79,9 @@ class BbhChatboxWidget {
         this._log('Do save_config');
         this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`, data, { Authorization: this._chatbox_widget_access_token }, proceed);
     }
-    delete_config(proceed) {
+    delete_config(input, proceed) {
         this._log('Do delete_config');
-        this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`, {}, { Authorization: this._chatbox_widget_access_token }, proceed);
+        this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`, Object.assign(Object.assign({}, input), { config_data: {} }), { Authorization: this._chatbox_widget_access_token }, proceed);
     }
     get_config(data, proceed) {
         this._log('Do get config');

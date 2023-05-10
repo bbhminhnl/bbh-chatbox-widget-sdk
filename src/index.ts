@@ -8,7 +8,7 @@ import {
 
 import {
     Callback, InitContructor, GetCustomerInfoCallback, GetConfigInput,
-    SaveConfigInput,
+    SaveConfigInput, WidgetConfigRequireData,
 } from './interface'
 
 export class BbhChatboxWidget {
@@ -112,12 +112,12 @@ export class BbhChatboxWidget {
             proceed
         )
     }
-    public delete_config(proceed: Callback) {
+    public delete_config(input: WidgetConfigRequireData, proceed: Callback) {
         this._log('Do delete_config')
 
         this._post_json(
             `${CHATBOX_WIDGET_DOMAIN}/setting/WidgetSetting/save-config`,
-            {},
+            { ...input, config_data: {} },
             { Authorization: this._chatbox_widget_access_token },
             proceed
         )

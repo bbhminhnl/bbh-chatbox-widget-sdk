@@ -24,9 +24,11 @@ export interface GetConfigInput {
     type_config: TypeConfig;
     brand_name: string;
 }
-export interface SaveConfigInput {
+export interface WidgetConfigRequireData {
     type_config: TypeConfig;
     brand_name: string;
+}
+export interface SaveConfigInput extends WidgetConfigRequireData {
     config_data: any;
 }
 export {};

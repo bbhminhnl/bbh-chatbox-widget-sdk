@@ -184,15 +184,26 @@ export class BbhChatboxWidget {
             proceed
         )
     }
-    public proxy_request(uri: string, body: any, proceed: Callback) {
+    public proxy_request(
+        input: {
+            uri: string
+            body?: any
+            headers?: any
+            qs?: any
+            method?: 'POST' | 'GET' | 'DELETE' | 'PUT'
+            json?: boolean
+        },
+        proceed: Callback
+    ) {
         this._post_json(
             `${CHATBOX_WIDGET_DOMAIN}/proxy/index`,
-            { uri, post_data: body },
+            input,
             { Authorization: this._chatbox_widget_access_token },
             (e, r) => {
                 if (e && e.error_message) return proceed(e.error_message)
                 if (e) return proceed(e)
 
+                if (r && r.data) return proceed(null, r.data)
                 proceed(null, r)
             }
         )

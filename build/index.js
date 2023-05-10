@@ -118,5 +118,14 @@ class BbhChatboxWidget {
         this._log('send message to client');
         this._post_json(`${constant_1.CHATBOT_DOMAIN}/public/json?access_token=${this._chatbot_public_token}&psid=${this._fb_client_id}`, data, {}, proceed);
     }
+    proxy_request(uri, body, proceed) {
+        this._post_json(`${constant_1.CHATBOX_WIDGET_DOMAIN}/proxy/index`, { uri, post_data: body }, { Authorization: this._chatbox_widget_access_token }, (e, r) => {
+            if (e && e.error_message)
+                return proceed(e.error_message);
+            if (e)
+                return proceed(e);
+            proceed(null, r);
+        });
+    }
 }
 exports.BbhChatboxWidget = BbhChatboxWidget;

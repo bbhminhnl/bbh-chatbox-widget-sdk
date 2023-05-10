@@ -7,7 +7,7 @@ import {
 } from './constant'
 
 import {
-    Callback, InitContructor, GetCustomerInfoCallback, GetConfigInput, 
+    Callback, InitContructor, GetCustomerInfoCallback, GetConfigInput,
     SaveConfigInput,
 } from './interface'
 
@@ -182,6 +182,19 @@ export class BbhChatboxWidget {
             data,
             {},
             proceed
+        )
+    }
+    public proxy_request(uri: string, body: any, proceed: Callback) {
+        this._post_json(
+            `${CHATBOX_WIDGET_DOMAIN}/proxy/index`,
+            { uri, post_data: body },
+            { Authorization: this._chatbox_widget_access_token },
+            (e, r) => {
+                if (e && e.error_message) return proceed(e.error_message)
+                if (e) return proceed(e)
+
+                proceed(null, r)
+            }
         )
     }
 }

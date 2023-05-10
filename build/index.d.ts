@@ -22,4 +22,5 @@ export declare class BbhChatboxWidget {
     connect_widget_to_page_chatbox(token_partner: string, proceed: Callback): void;
     get_client_info(proceed: GetCustomerInfoCallback): void;
     send_message_to_client(data: any, proceed: Callback): void;
+    proxy_request(uri: string, body: any, proceed: Callback): void;
 }
